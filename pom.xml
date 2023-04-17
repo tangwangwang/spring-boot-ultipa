@@ -16,6 +16,10 @@
         <url>https://ultipa.com</url>
     </organization>
 
+    <modules>
+        <module>spring-boot-autoconfigure-ultipa</module>
+    </modules>
+
     <properties>
         <spring-boot>2.7.10-SNAPSHOT</spring-boot>
         <spring-data-ultipa>1.0.0-SNAPSHOT</spring-data-ultipa>

@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.ultipa.UltipaAutoConfiguration
+org.springframework.boot.autoconfigure.data.ultipa.UltipaDataAutoConfiguration
+org.springframework.boot.autoconfigure.data.ultipa.UltipaRepositoriesAutoConfiguration
