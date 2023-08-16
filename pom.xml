@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.springframework.boot</groupId>
+    <groupId>com.ultipa</groupId>
     <artifactId>spring-boot-ultipa</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -30,12 +30,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
+                <groupId>com.ultipa</groupId>
                 <artifactId>spring-boot-autoconfigure-ultipa</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
+                <groupId>com.ultipa</groupId>
                 <artifactId>spring-boot-starter-data-ultipa</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -52,7 +52,7 @@
                 <version>${spring-boot}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.data</groupId>
+                <groupId>com.ultipa</groupId>
                 <artifactId>spring-data-ultipa</artifactId>
                 <version>${spring-data-ultipa}</version>
             </dependency>

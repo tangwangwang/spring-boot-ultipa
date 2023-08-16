@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
+        <groupId>com.ultipa</groupId>
         <artifactId>spring-boot-ultipa</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -21,7 +21,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
+            <groupId>com.ultipa</groupId>
             <artifactId>spring-boot-autoconfigure-ultipa</artifactId>
         </dependency>
         <dependency>
@@ -30,7 +30,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.data</groupId>
+            <groupId>com.ultipa</groupId>
             <artifactId>spring-data-ultipa</artifactId>
             <scope>compile</scope>
         </dependency>
