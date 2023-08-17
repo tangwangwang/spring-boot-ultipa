@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author Wangwang Tang
  * @since 1.0
  */
-@ConfigurationProperties(prefix = "spring.ultipa")
+@ConfigurationProperties(prefix = "spring.data.ultipa")
 public class UltipaProperties {
 
     private String hosts;
@@ -61,6 +61,11 @@ public class UltipaProperties {
      * Current graph set.
      */
     private String currentGraph;
+
+    /**
+     * Whether to use master node query
+     */
+    private Boolean useLeader = false;
 
     /**
      * pool config
@@ -169,6 +174,14 @@ public class UltipaProperties {
 
     public void setCurrentGraph(String currentGraph) {
         this.currentGraph = currentGraph;
+    }
+
+    public Boolean getUseLeader() {
+        return useLeader;
+    }
+
+    public void setUseLeader(Boolean useLeader) {
+        this.useLeader = useLeader;
     }
 
     public UltipaPoolProperties getPool() {

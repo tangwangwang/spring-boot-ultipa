@@ -33,5 +33,4 @@ import org.springframework.data.ultipa.repository.support.UltipaRepositoryFactor
 @ConditionalOnRepositoryType(store = "ultipa", type = RepositoryType.IMPERATIVE)
 @Import(UltipaRepositoriesRegistrar.class)
 public class UltipaRepositoriesAutoConfiguration {
-
 }

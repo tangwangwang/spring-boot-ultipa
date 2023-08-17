@@ -18,6 +18,8 @@ import org.springframework.data.ultipa.core.convert.UltipaCustomConversions;
 import org.springframework.data.ultipa.core.mapping.UltipaMappingContext;
 import org.springframework.data.ultipa.repository.config.UltipaRepositoryConfigurationExtension;
 
+import java.util.Optional;
+
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for Spring Data Ultipa.
  *
@@ -50,8 +52,11 @@ public class UltipaDataAutoConfiguration {
 
     @Bean(UltipaRepositoryConfigurationExtension.DEFAULT_ULTIPA_TEMPLATE_BEAN_NAME)
     @ConditionalOnMissingBean(value = UltipaOperations.class, name = UltipaRepositoryConfigurationExtension.DEFAULT_ULTIPA_TEMPLATE_BEAN_NAME)
-    public UltipaTemplate ultipaTemplate(UltipaClientDriver clientDriver, UltipaConverter converter) {
-        return new UltipaTemplate(clientDriver, converter);
+    public UltipaTemplate ultipaTemplate(UltipaProperties ultipaProperties,
+                                         UltipaClientDriver clientDriver,
+                                         UltipaConverter converter) {
+        boolean useLeader = Optional.ofNullable(ultipaProperties.getUseLeader()).orElse(false);
+        return new UltipaTemplate(clientDriver, converter, useLeader);
     }
 
 }
