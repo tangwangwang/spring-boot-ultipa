@@ -1,6 +1,7 @@
 package org.springframework.boot.autoconfigure.data.ultipa;
 
 import com.ultipa.sdk.connect.driver.UltipaClientDriver;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.ultipa.UltipaAutoConfiguration;
 import org.springframework.boot.autoconfigure.ultipa.UltipaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mapping.model.FieldNamingStrategy;
 import org.springframework.data.ultipa.core.UltipaOperations;
 import org.springframework.data.ultipa.core.UltipaTemplate;
 import org.springframework.data.ultipa.core.convert.MappingUltipaConverter;
@@ -40,8 +42,17 @@ public class UltipaDataAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public UltipaMappingContext ultipaMappingContext() {
-        return new UltipaMappingContext();
+    public UltipaMappingContext ultipaMappingContext(UltipaProperties properties) {
+        UltipaMappingContext context = new UltipaMappingContext();
+
+        context.setValidate(properties.getValidateSchema());
+        context.setGenerate(properties.getGenerateSchema());
+        Class<? extends FieldNamingStrategy> strategyClass = properties.getFieldNamingStrategy();
+        if (strategyClass != null) {
+            context.setFieldNamingStrategy(BeanUtils.instantiateClass(strategyClass));
+        }
+
+        return context;
     }
 
     @Bean
@@ -52,10 +63,10 @@ public class UltipaDataAutoConfiguration {
 
     @Bean(UltipaRepositoryConfigurationExtension.DEFAULT_ULTIPA_TEMPLATE_BEAN_NAME)
     @ConditionalOnMissingBean(value = UltipaOperations.class, name = UltipaRepositoryConfigurationExtension.DEFAULT_ULTIPA_TEMPLATE_BEAN_NAME)
-    public UltipaTemplate ultipaTemplate(UltipaProperties ultipaProperties,
+    public UltipaTemplate ultipaTemplate(UltipaProperties properties,
                                          UltipaClientDriver clientDriver,
                                          UltipaConverter converter) {
-        boolean useLeader = Optional.ofNullable(ultipaProperties.getUseLeader()).orElse(false);
+        boolean useLeader = Optional.ofNullable(properties.getUseLeader()).orElse(false);
         return new UltipaTemplate(clientDriver, converter, useLeader);
     }
 

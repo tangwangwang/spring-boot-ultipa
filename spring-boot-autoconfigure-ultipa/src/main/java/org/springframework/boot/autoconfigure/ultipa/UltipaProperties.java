@@ -2,6 +2,8 @@ package org.springframework.boot.autoconfigure.ultipa;
 
 import com.ultipa.sdk.operate.constant.Constant;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.data.mapping.model.FieldNamingStrategy;
+import org.springframework.data.mapping.model.PropertyNameFieldNamingStrategy;
 
 /**
  * Configuration properties for Ultipa.
@@ -66,6 +68,21 @@ public class UltipaProperties {
      * Whether to use master node query
      */
     private Boolean useLeader = false;
+
+    /**
+     * Fully qualified name of the FieldNamingStrategy to use. Defaults to a strategy using the plain property name {@link PropertyNameFieldNamingStrategy}.
+     */
+    private Class<? extends FieldNamingStrategy> fieldNamingStrategy;
+
+    /**
+     * Whether to validate schemas and properties
+     */
+    public Boolean validateSchema = false;
+
+    /**
+     * Whether to auto generate non-existent schemas and properties
+     */
+    public Boolean generateSchema = false;
 
     /**
      * pool config
@@ -182,6 +199,30 @@ public class UltipaProperties {
 
     public void setUseLeader(Boolean useLeader) {
         this.useLeader = useLeader;
+    }
+
+    public Class<? extends FieldNamingStrategy> getFieldNamingStrategy() {
+        return fieldNamingStrategy;
+    }
+
+    public void setFieldNamingStrategy(Class<? extends FieldNamingStrategy> fieldNamingStrategy) {
+        this.fieldNamingStrategy = fieldNamingStrategy;
+    }
+
+    public Boolean getValidateSchema() {
+        return validateSchema;
+    }
+
+    public void setValidateSchema(Boolean validateSchema) {
+        this.validateSchema = validateSchema;
+    }
+
+    public Boolean getGenerateSchema() {
+        return generateSchema;
+    }
+
+    public void setGenerateSchema(Boolean generateSchema) {
+        this.generateSchema = generateSchema;
     }
 
     public UltipaPoolProperties getPool() {
