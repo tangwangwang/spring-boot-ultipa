@@ -2,19 +2,40 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ultipa</groupId>
+    <groupId>com.tangwangwang</groupId>
     <artifactId>spring-boot-ultipa</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Spring Boot Ultipa</name>
     <description>Parent project for using Spring Data Ultipa in Spring Boot</description>
-    <url>https://ultipa.com/projects/spring-boot-ultipa</url>
+    <url>https://github.com/tangwangwang/spring-boot-ultipa</url>
     <inceptionYear>2022</inceptionYear>
     <organization>
         <name>Ultipa, next-generation graph database</name>
         <url>https://ultipa.com</url>
     </organization>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Wangwang Tang</name>
+            <email>tang.wangwang@qq.com</email>
+            <organization>https://www.ultipa.com</organization>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/tangwangwang/spring-boot-ultipa.git</connection>
+        <developerConnection>scm:git:git@github.com:tangwangwang/spring-boot-ultipa.git</developerConnection>
+        <url>https://github.com/tangwangwang/spring-boot-ultipa</url>
+    </scm>
 
     <modules>
         <module>spring-boot-autoconfigure-ultipa</module>
@@ -22,20 +43,27 @@
     </modules>
 
     <properties>
+        <shared.resources>${project.build.directory}/shared-resources</shared.resources>
+        <source.level>1.8</source.level>
         <spring-boot>2.7.15-SNAPSHOT</spring-boot>
         <spring-data-ultipa>1.0.0-SNAPSHOT</spring-data-ultipa>
         <ultipa-java-sdk>4.3.4-SNAPSHOT</ultipa-java-sdk>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.ultipa</groupId>
+                <groupId>com.tangwangwang</groupId>
                 <artifactId>spring-boot-autoconfigure-ultipa</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.ultipa</groupId>
+                <groupId>com.tangwangwang</groupId>
                 <artifactId>spring-boot-starter-data-ultipa</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -52,7 +80,7 @@
                 <version>${spring-boot}</version>
             </dependency>
             <dependency>
-                <groupId>com.ultipa</groupId>
+                <groupId>com.tangwangwang</groupId>
                 <artifactId>spring-data-ultipa</artifactId>
                 <version>${spring-data-ultipa}</version>
             </dependency>
@@ -80,4 +108,138 @@
             <url>https://repo.spring.io/milestone</url>
         </repository>
     </repositories>
+
+    <build>
+        <plugins>
+            <!-- maven-compiler-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                    <parameters>true</parameters>
+                    <source>${source.level}</source>
+                    <target>${source.level}</target>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>java-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>java-test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- sonatype repository -->
+        <profile>
+            <id>sonatype</id>
+            <build>
+                <plugins>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <configuration>
+                            <locale>en_US</locale>
+                            <breakiterator>true</breakiterator>
+                            <header>${project.name}</header>
+                            <source>${source.level}</source>
+                            <quiet>true</quiet>
+                            <javadocDirectory>${shared.resources}/javadoc</javadocDirectory>
+                            <overview>${shared.resources}/javadoc/overview.html</overview>
+                            <docfilessubdirs>true</docfilessubdirs>
+                            <additionalOptions>
+                                <additionalOption>-Xdoclint:none</additionalOption>
+                            </additionalOptions>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- sonatype release plugin autoRelease  -->
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${nexus-staging-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>sonatype</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                            <keepStagingRepositoryOnFailure>true</keepStagingRepositoryOnFailure>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <!-- oss -->
+                <snapshotRepository>
+                    <id>sonatype</id>
+                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>sonatype</id>
+                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>
