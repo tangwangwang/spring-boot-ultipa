@@ -1,4 +1,4 @@
-package org.springframework.boot.autoconfigure.ultipa;
+package com.tangwangwang.spring.boot.autoconfigure.ultipa;
 
 import com.ultipa.sdk.connect.driver.DataSource;
 import com.ultipa.sdk.connect.driver.UltipaClientDriver;

@@ -1,4 +1,4 @@
-package org.springframework.boot.autoconfigure.ultipa;
+package com.tangwangwang.spring.boot.autoconfigure.ultipa;
 
 import com.ultipa.sdk.operate.constant.Constant;
 import org.springframework.boot.context.properties.ConfigurationProperties;

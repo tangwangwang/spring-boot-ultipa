@@ -1,10 +1,10 @@
-package org.springframework.boot.autoconfigure.data.ultipa;
+package com.tangwangwang.spring.boot.autoconfigure.data.ultipa;
 
+import com.tangwangwang.spring.data.ultipa.repository.config.EnableUltipaRepositories;
+import com.tangwangwang.spring.data.ultipa.repository.config.UltipaRepositoryConfigurationExtension;
 import org.springframework.boot.autoconfigure.data.AbstractRepositoryConfigurationSourceSupport;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.data.repository.config.RepositoryConfigurationExtension;
-import org.springframework.data.ultipa.repository.config.EnableUltipaRepositories;
-import org.springframework.data.ultipa.repository.config.UltipaRepositoryConfigurationExtension;
 
 import java.lang.annotation.Annotation;
 
