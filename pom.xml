@@ -156,6 +156,7 @@
             <id>sonatype</id>
             <build>
                 <plugins>
+
                     <!-- Source -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
