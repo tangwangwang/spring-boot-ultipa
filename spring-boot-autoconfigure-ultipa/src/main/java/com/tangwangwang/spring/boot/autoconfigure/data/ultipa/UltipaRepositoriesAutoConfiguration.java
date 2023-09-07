@@ -1,5 +1,9 @@
-package org.springframework.boot.autoconfigure.data.ultipa;
+package com.tangwangwang.spring.boot.autoconfigure.data.ultipa;
 
+import com.tangwangwang.spring.data.ultipa.repository.UltipaRepository;
+import com.tangwangwang.spring.data.ultipa.repository.config.EnableUltipaRepositories;
+import com.tangwangwang.spring.data.ultipa.repository.config.UltipaRepositoryConfigurationExtension;
+import com.tangwangwang.spring.data.ultipa.repository.support.UltipaRepositoryFactoryBean;
 import com.ultipa.sdk.connect.driver.UltipaClientDriver;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -8,10 +12,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.data.ConditionalOnRepositoryType;
 import org.springframework.boot.autoconfigure.data.RepositoryType;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.ultipa.repository.UltipaRepository;
-import org.springframework.data.ultipa.repository.config.EnableUltipaRepositories;
-import org.springframework.data.ultipa.repository.config.UltipaRepositoryConfigurationExtension;
-import org.springframework.data.ultipa.repository.support.UltipaRepositoryFactoryBean;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for Spring Data's Ultipa Repositories.

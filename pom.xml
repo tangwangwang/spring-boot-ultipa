@@ -4,7 +4,7 @@
 
     <groupId>com.tangwangwang</groupId>
     <artifactId>spring-boot-ultipa</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-alpha</version>
     <packaging>pom</packaging>
 
     <name>Spring Boot Ultipa</name>
@@ -45,9 +45,9 @@
     <properties>
         <shared.resources>${project.build.directory}/shared-resources</shared.resources>
         <source.level>1.8</source.level>
-        <spring-boot>2.7.15-SNAPSHOT</spring-boot>
-        <spring-data-ultipa>1.0.0-SNAPSHOT</spring-data-ultipa>
-        <ultipa-java-sdk>4.3.4-SNAPSHOT</ultipa-java-sdk>
+        <spring-boot>2.7.14</spring-boot>
+        <spring-data-ultipa>1.0.0-alpha</spring-data-ultipa>
+        <ultipa-java-sdk>4.3.3</ultipa-java-sdk>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
@@ -109,47 +109,54 @@
         </repository>
     </repositories>
 
+    <build>
+        <plugins>
+            <!-- maven-compiler-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                    <parameters>true</parameters>
+                    <source>${source.level}</source>
+                    <target>${source.level}</target>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>java-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>java-test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <!-- sonatype repository -->
         <profile>
             <id>sonatype</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>${maven-compiler-plugin.version}</version>
-                        <configuration>
-                            <forceJavacCompilerUse>true</forceJavacCompilerUse>
-                            <parameters>true</parameters>
-                            <source>${source.level}</source>
-                            <target>${source.level}</target>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>default-compile</id>
-                                <phase>none</phase>
-                            </execution>
-                            <execution>
-                                <id>default-testCompile</id>
-                                <phase>none</phase>
-                            </execution>
-                            <execution>
-                                <id>java-compile</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>compile</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>java-test-compile</id>
-                                <phase>test-compile</phase>
-                                <goals>
-                                    <goal>testCompile</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+
                     <!-- Source -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -164,6 +171,7 @@
                             </execution>
                         </executions>
                     </plugin>
+
                     <!-- Javadoc -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -199,10 +207,18 @@
                         <version>${maven-gpg-plugin.version}</version>
                         <executions>
                             <execution>
+                                <id>sign-artifacts</id>
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <configuration>
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                        <arg>--no-tty</arg>
+                                    </gpgArguments>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
