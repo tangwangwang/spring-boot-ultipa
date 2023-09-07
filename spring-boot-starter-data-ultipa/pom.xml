@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.tangwangwang</groupId>
         <artifactId>spring-boot-ultipa</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0-alpha</version>
     </parent>
 
     <artifactId>spring-boot-starter-data-ultipa</artifactId>
