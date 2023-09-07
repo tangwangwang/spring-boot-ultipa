@@ -4,7 +4,7 @@
 
     <groupId>com.tangwangwang</groupId>
     <artifactId>spring-boot-ultipa</artifactId>
-    <version>1.0.0-alpha</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Spring Boot Ultipa</name>
@@ -45,8 +45,8 @@
     <properties>
         <shared.resources>${project.build.directory}/shared-resources</shared.resources>
         <source.level>1.8</source.level>
-        <spring-boot>2.7.14</spring-boot>
-        <spring-data-ultipa>1.0.0-alpha</spring-data-ultipa>
+        <spring-boot>2.7.15-SNAPSHOT</spring-boot>
+        <spring-data-ultipa>1.0.0-SNAPSHOT</spring-data-ultipa>
         <ultipa-java-sdk>4.3.3</ultipa-java-sdk>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
